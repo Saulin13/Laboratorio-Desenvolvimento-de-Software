@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Collections;
 
 @RestController
 public class TaskController {
@@ -50,12 +51,12 @@ public class TaskController {
     }
     @GetMapping("/concluir-tarefas")
     @Operation(summary = "Concluir tarefas da lista")
-    public ResponseEntity<List<Task>> concluirTarefas() {
-        List<Task> taskList = taskService.concluirTarefas();
-        if (taskList.isEmpty()) {
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<List<Task>> concluirTarefas(@RequestParam Long taskId) {
+        Task completedTask = taskService.concluirTarefa(taskId);
+        if (completedTask == null) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(taskList);
+        return ResponseEntity.ok(Collections.singletonList(completedTask));
     }
 
     @GetMapping("/priorizar-tarefas")

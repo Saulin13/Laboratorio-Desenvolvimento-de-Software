@@ -71,6 +71,15 @@ public class Task {
         }
     }
 
+    private String category; // Novo campo para categoria
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Task [id=" + id + ", description=" + description + ", completed=" +
